@@ -278,14 +278,14 @@ select:focus-visible {
   height: 87px;
 }
 .brand > span {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.02em;
 }
 .brand-caption {
   display: block;
-  font-size: 6.4px;
+  font-size: 7.6px;
   font-weight: 500;
   letter-spacing: 0.13em;
   margin-top: 7px;
@@ -1764,10 +1764,10 @@ select:focus-visible {
     gap: 11px;
   }
   .brand > span {
-    font-size: 12px;
+    font-size: 14px;
   }
   .brand-caption {
-    font-size: 5.7px;
+    font-size: 6.6px;
   }
   .hero-grid {
     gap: 37px;
@@ -1891,7 +1891,7 @@ select:focus-visible {
   .topbar a {
     font-size: 8px;
   }
-  .nav-wrap {
+  .site-header .nav-wrap {
     height: 92px;
     gap: 15px;
   }
@@ -1900,10 +1900,10 @@ select:focus-visible {
     height: 72px;
   }
   .brand > span {
-    font-size: 12px;
+    font-size: 14px;
   }
   .brand-caption {
-    font-size: 5.4px;
+    font-size: 6.4px;
   }
   .desktop-nav {
     display: none;
@@ -2260,7 +2260,7 @@ select:focus-visible {
     height: 10px;
     margin-left: 0;
   }
-  .nav-wrap {
+  .site-header .nav-wrap {
     height: 86px;
     gap: 11px;
   }
@@ -2272,10 +2272,10 @@ select:focus-visible {
     height: 58px;
   }
   .brand > span {
-    font-size: 10px;
+    font-size: 11.5px;
   }
   .brand-caption {
-    font-size: 4.7px;
+    font-size: 5.3px;
     letter-spacing: 0.06em;
     margin-top: 5px;
   }
@@ -2932,10 +2932,14 @@ select:focus-visible {
   }
   .header-cta {
     padding-inline: 9px;
-    gap: 7px;
+    gap: 0;
   }
-  .nav-wrap {
-    gap: 9px;
+  .header-cta svg {
+    display: none;
+  }
+  .site-header .nav-wrap {
+    gap: 8px;
+    padding-inline: 12px;
   }
   .hero h1 {
     font-size: 33px;
