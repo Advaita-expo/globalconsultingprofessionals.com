@@ -1,0 +1,19 @@
+{
+  "name": "gcp-professional-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "predev": "node scripts/prepare-pages.mjs",
+    "dev": "vite --host localhost --port 4173 --strictPort",
+    "build": "node scripts/prepare-pages.mjs && tsc --noEmit && vite build",
+    "preview": "vite preview --host localhost --port 4173 --strictPort"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^7.1.12"
+  }
+}
