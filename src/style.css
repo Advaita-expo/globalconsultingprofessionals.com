@@ -261,7 +261,7 @@ select:focus-visible {
   border-bottom: 1px solid #e7e6e2;
 }
 .nav-wrap {
-  height: 96px;
+  height: 112px;
   display: flex;
   align-items: center;
   gap: 44px;
@@ -274,8 +274,8 @@ select:focus-visible {
 }
 .brand > img {
   object-fit: contain;
-  width: 71px;
-  height: 63px;
+  width: 102px;
+  height: 87px;
 }
 .brand > span {
   font-size: 14px;
@@ -1892,12 +1892,12 @@ select:focus-visible {
     font-size: 8px;
   }
   .nav-wrap {
-    height: 80px;
+    height: 92px;
     gap: 15px;
   }
   .brand > img {
-    width: 59px;
-    height: 52px;
+    width: 84px;
+    height: 72px;
   }
   .brand > span {
     font-size: 12px;
@@ -2261,15 +2261,15 @@ select:focus-visible {
     margin-left: 0;
   }
   .nav-wrap {
-    height: 75px;
+    height: 86px;
     gap: 11px;
   }
   .brand {
     gap: 9px;
   }
   .brand > img {
-    width: 48px;
-    height: 43px;
+    width: 68px;
+    height: 58px;
   }
   .brand > span {
     font-size: 10px;

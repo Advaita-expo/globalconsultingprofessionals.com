@@ -131,7 +131,7 @@ To provide server-side delivery, connect a mail service to the submit handler in
 
 Current contacts:
 
-- United States: `deepak@globalconsultingprofessionals.com`, `+1 412 455 6125`.
+- United States: `deepak@globalconsultingprofessionals.com`, `+1 718-928-6601`.
 - India: `recruiting@global-pros.com`, `+91 99700 09816`, `+91 88844 43822`.
 
 ## Build and deployment

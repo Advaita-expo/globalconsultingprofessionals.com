@@ -29,7 +29,7 @@ export function initInteractions() {
     us: {
       name: "United States",
       email: "deepak@globalconsultingprofessionals.com",
-      phones: [{ label: "+1 412 455 6125", number: "+14124556125" }],
+      phones: [{ label: "+1 718-928-6601", number: "+17189286601" }],
       zone: "America/New_York",
     },
     india: {
