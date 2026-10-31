@@ -14,9 +14,12 @@ import {
 } from "./pages";
 import { initInteractions } from "./interactions";
 import { initMotion } from "./motion";
+import { withBasePaths } from "./paths";
 
 const page = currentPage();
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = renderPage(page);
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = withBasePaths(
+  renderPage(page),
+);
 document.title = `${pageMeta[page].title} — GCP`;
 document
   .querySelector('meta[name="description"]')

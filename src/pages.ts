@@ -1,5 +1,6 @@
 import { arrow, northeast, icon, services, team } from "./content";
 import { motionArt } from "./motion";
+import { pagePath } from "./paths";
 import {
   expertiseSection,
   engagementSection,
@@ -75,7 +76,7 @@ export const pageMeta = {
 };
 export function currentPage(): PageId {
   const e =
-    location.pathname.replace(/index\.html$/, "").replace(/\/$/, "") || "/";
+    pagePath(location.pathname).replace(/index\.html$/, "").replace(/\/$/, "") || "/";
   return (Object.entries(pageMeta).find(
     ([, t]) => t.path.replace(/\/$/, "") === e,
   )?.[0] || "home") as PageId;

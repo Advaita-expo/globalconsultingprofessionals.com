@@ -1,4 +1,5 @@
 import { arrow, northeast, check, icon, services, team } from "./content";
+import { sitePath, withBasePaths } from "./paths";
 
 export function initInteractions() {
   function renderServices(group: string) {
@@ -60,7 +61,7 @@ export function initInteractions() {
   const dialogContent =
     document.querySelector<HTMLDivElement>("#dialog-content")!;
   function openDialog(html: string) {
-    dialogContent.innerHTML = html;
+    dialogContent.innerHTML = withBasePaths(html);
     dialog.showModal();
     document.body.classList.add("dialog-open");
   }
@@ -87,7 +88,7 @@ export function initInteractions() {
 
   function setInterest(value: string) {
     if (!document.querySelector("#contact-interest")) {
-      window.location.href = "/contact/?interest=" + encodeURIComponent(value);
+      window.location.href = sitePath("/contact/?interest=" + encodeURIComponent(value));
       return;
     }
     if (dialog.open) closeDialog();

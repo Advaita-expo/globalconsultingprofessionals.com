@@ -2,6 +2,8 @@
 
 A responsive, multipage company website for **Global Consulting Professionals (GCP)**, built with TypeScript, Vite, and CSS. The design uses GCP's supplied logo with a burgundy, warm gray, ivory, and black palette.
 
+**Website:** [advaita-expo.github.io/globalconsultingprofessionals.com](https://advaita-expo.github.io/globalconsultingprofessionals.com/)
+
 The homepage introduces the company through a cinematic **New York → Mumbai → Bangalore** video sequence. Dedicated pages contain the full services, engagement options, advisory profiles, and collective client experience, keeping the content focused across the site.
 
 ## Quick start
@@ -80,6 +82,7 @@ Each route has its own HTML entry file and page metadata. Direct navigation and 
 │   ├── components.ts         # Shared content components
 │   ├── interactions.ts       # Navigation, tabs, dialogs, and inquiry form
 │   ├── motion.ts             # Video sequencing and motion preferences
+│   ├── paths.ts              # Domain-root and GitHub Pages URL handling
 │   └── *.css                 # Design system and responsive styles
 ├── package.json
 ├── package-lock.json
@@ -145,7 +148,22 @@ Deploy the **contents of `dist/`** to a static web host. There is no production 
 | Build command | `npm run build` |
 | Output directory | `dist` |
 
-The site uses root-relative routes and asset URLs, so host it at the root of a domain or subdomain. A GitHub Pages project URL such as `username.github.io/repository/` requires adapting the route and asset paths; changing only Vite's `base` is insufficient for links written in the page templates. A GitHub Pages custom domain can serve the existing root paths.
+### GitHub Pages
+
+The repository includes `.github/workflows/deploy-pages.yml`. In **Settings → Pages → Build and deployment**, choose **GitHub Actions** as the source. Every push to `main` then installs the locked dependencies, builds all eight pages, and deploys **`dist/`**.
+
+Do not choose **Deploy from a branch → main → / (root)**. That publishes the unbuilt source HTML and cannot run `src/main.ts`, which leaves only the “Skip to content” link visible.
+
+The workflow reads the Pages base path automatically. `src/paths.ts` applies that path to navigation, media, profile dialogs, and inquiry links. Fonts use paths relative to their stylesheet. The same source supports a repository URL and a custom domain.
+
+To preview a repository-path build locally while the normal development server is running:
+
+```sh
+npm run build -- --base /globalconsultingprofessionals.com/
+npm run preview -- --port 4174 --base /globalconsultingprofessionals.com/
+```
+
+Open `http://localhost:4174/globalconsultingprofessionals.com/`. For a domain-root deployment, use the ordinary `npm run build` command.
 
 Serve `.mp4` files as `video/mp4` and support byte-range requests for efficient playback. Preserve all eight built page directories. No SPA fallback is required.
 
@@ -164,6 +182,7 @@ There is no automated browser test suite in this repository.
 
 ## Troubleshooting
 
+- **GitHub Pages shows only “Skip to content”:** select **GitHub Actions** as the Pages source and check that the **Build and deploy GCP to GitHub Pages** workflow completed successfully. The production site must serve the built `dist/` artifact, not the TypeScript source.
 - **Port 4173 is occupied:** stop the earlier development/preview process or choose another port with the command shown above. Strict port selection prevents Vite silently moving the site to another address.
 - **The local site is unavailable:** keep `npm run dev` running in a terminal and open the exact URL it prints. The development server must remain running while you browse.
 - **An older Mumbai video appears:** hard-refresh the page and confirm the deployed files include `mumbai-v2.mp4` and the current JavaScript bundle.
