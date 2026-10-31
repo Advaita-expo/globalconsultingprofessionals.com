@@ -31,6 +31,7 @@ Open **[http://localhost:4173/](http://localhost:4173/)**. The server binds to t
 | `npm run dev` | Generate page entry files and start the development server at `localhost:4173`. |
 | `npm run build` | Generate page entry files, check TypeScript, and build the production site into `dist/`. |
 | `npm run preview` | Serve the production build locally at `localhost:4173`. Run the build first. |
+| `npm run deploy:pages` | Build locally for the repository URL and push the compiled site to `gh-pages`. Requires GitHub push access. |
 
 Development and preview use the same port. Stop one with **Ctrl+C** before starting the other. To use a different port, run `npm run dev -- --port 4174` or `npm run preview -- --port 4174`.
 
@@ -74,6 +75,7 @@ Each route has its own HTML entry file and page metadata. Direct navigation and 
 │       └── video/            # Optimized hero clips and posters
 ├── scripts/
 │   ├── prepare-pages.mjs     # Generates the seven nested page entries
+│   ├── deploy-pages.mjs      # Builds and publishes the static gh-pages branch
 │   └── generate-motion.py    # Optional GIF artwork generator
 ├── src/
 │   ├── main.ts               # Application initialization
@@ -150,11 +152,22 @@ Deploy the **contents of `dist/`** to a static web host. There is no production 
 
 ### GitHub Pages
 
-The repository includes `.github/workflows/deploy-pages.yml`. In **Settings → Pages → Build and deployment**, choose **GitHub Actions** as the source. Every push to `main` then installs the locked dependencies, builds all eight pages, and deploys **`dist/`**.
+The source code is on **`main`**; the compiled website is on **`gh-pages`**. In **Settings → Pages → Build and deployment**, choose **Deploy from a branch → gh-pages → / (root)**.
 
-Do not choose **Deploy from a branch → main → / (root)**. That publishes the unbuilt source HTML and cannot run `src/main.ts`, which leaves only the “Skip to content” link visible.
+After editing and committing the source on `main`, publish an update with:
 
-The workflow reads the Pages base path automatically. `src/paths.ts` applies that path to navigation, media, profile dialogs, and inquiry links. Fonts use paths relative to their stylesheet. The same source supports a repository URL and a custom domain.
+```sh
+npm ci
+npm run deploy:pages
+```
+
+This command builds all eight pages for `/globalconsultingprofessionals.com/`, creates a separate checkout under the ignored `.sites-local/` directory, and pushes the built files to `gh-pages`. It does not switch or reset the source checkout and does not force-push. Keep the terminal open until the push finishes, then check the repository's Pages deployment status.
+
+Do not select **main → / (root)** as the publishing source. That publishes the unbuilt source HTML and cannot run `src/main.ts`, which leaves only the “Skip to content” link visible.
+
+`src/paths.ts` applies Vite's build base to navigation, media, profile dialogs, and inquiry links. Fonts use paths relative to their stylesheet. The same source supports a repository URL and a custom domain. For a domain-root Pages deployment, run `npm run deploy:pages -- /` after configuring the custom domain in GitHub.
+
+An optional manual workflow is included at `.github/workflows/deploy-pages.yml`. If GitHub Actions is available for the account, you can switch the Pages source to **GitHub Actions** and run **Build and deploy GCP to GitHub Pages** from the Actions tab. It reads the Pages base path automatically. Branch publishing remains available when custom Actions jobs cannot run.
 
 To preview a repository-path build locally while the normal development server is running:
 
@@ -182,7 +195,8 @@ There is no automated browser test suite in this repository.
 
 ## Troubleshooting
 
-- **GitHub Pages shows only “Skip to content”:** select **GitHub Actions** as the Pages source and check that the **Build and deploy GCP to GitHub Pages** workflow completed successfully. The production site must serve the built `dist/` artifact, not the TypeScript source.
+- **GitHub Pages shows only “Skip to content”:** select **gh-pages → / (root)** as the branch source and run `npm run deploy:pages`. The production site must serve the compiled files, not `main`'s TypeScript source. If using the optional Actions workflow, select GitHub Actions as the source instead.
+- **An Actions job is blocked by account billing:** branch publishing builds on your computer and does not need a custom Actions build job. GitHub account or Pages restrictions must still be resolved with GitHub if its managed Pages deployment is also blocked.
 - **Port 4173 is occupied:** stop the earlier development/preview process or choose another port with the command shown above. Strict port selection prevents Vite silently moving the site to another address.
 - **The local site is unavailable:** keep `npm run dev` running in a terminal and open the exact URL it prints. The development server must remain running while you browse.
 - **An older Mumbai video appears:** hard-refresh the page and confirm the deployed files include `mumbai-v2.mp4` and the current JavaScript bundle.

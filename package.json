@@ -10,6 +10,7 @@
     "predev": "node scripts/prepare-pages.mjs",
     "dev": "vite --host localhost --port 4173 --strictPort",
     "build": "node scripts/prepare-pages.mjs && tsc --noEmit && vite build",
+    "deploy:pages": "node scripts/deploy-pages.mjs",
     "preview": "vite preview --host localhost --port 4173 --strictPort"
   },
   "devDependencies": {
